@@ -3,10 +3,11 @@
 #include <stdlib.h>
 
 /**
- * get_up_func - select the option to perform arithmetic op
- * @s: operator argument
+ * get_op_func - selects the correct function to perform an operation.
+ * @s: The operator passed as argument to the program.
  *
- * Return: result of selected choice
+ * Return: A pointer to the function that corresponds to the operator
+ * given as a parameter. NULL if no such operator exists.
  */
 int (*get_op_func(char *s))(int, int)
 {
