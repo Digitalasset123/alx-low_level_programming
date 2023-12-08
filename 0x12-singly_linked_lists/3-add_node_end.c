@@ -1,53 +1,37 @@
 #include "lists.h"
-
 /**
- * add_node_end - adds a node at the end of the linked list
- *
- * @head: pointer to the first node of the list
- * @str: string to add
- *
- * Return: NULL if it fails / starting addr of the list
- */
-
+ * add_node_end - Add a new node at the end of a list
+ * @head: Address of the first node of a list
+ * @str: Address of the string to insert into the new node
+ * Return: Address of the new node
+ **/
 list_t *add_node_end(list_t **head, const char *str)
 {
-	list_t *new_node, *temp;
-	size_t str_len = 0;
-
-	/*set strig length to 0 if its NULL*/
+	list_t *temp, *temp2;
+	unsigned int length = 0;
 	if (str == NULL)
-		str_len = 0;
-
-	/*count length of string*/
-	while (str[str_len] != '\0')
-		str_len++;
-
-	new_node = malloc(sizeof(list_t));
-	if (new_node == NULL)
 		return (NULL);
-
-	new_node->str = strdup(str);
-	new_node->len = str_len;
-	new_node->next = NULL;
-
-	/*copy our starting node pointer to temp*/
-	temp = *head;
-
-	/*if temp is NULL place our new_node at the beginning of the list*/
-	/*else if its not null we place our new_node to temp->next hence*/
-	/*adding our new_node at the end of the list*/
+	temp = malloc(sizeof(list_t));
 	if (temp == NULL)
-		*head = new_node;
-	else
+		return (NULL);
+	temp->str = strdup(str);
+	if (temp->str == NULL)
 	{
-		/**
-		 * we iterate pointer next addr if its not NULL our temp addr
-		 * points to the next addr or the next node.
-		 */
-		while (temp->next != NULL)
-			temp = temp->next;
-		temp->next = new_node;
+		free(temp);
+		return (NULL);
 	}
-
-	return (*head);
+	while (str[length])
+		length++;
+	temp->len = length;
+	temp->next = NULL;
+	if (*head == NULL)
+	{
+		*head = temp;
+		return (temp);
+	}
+	temp2 = *head;
+	while (temp2->next)
+		temp2 = temp2->next;
+	temp2->next = temp;
+	return (temp);
 }
